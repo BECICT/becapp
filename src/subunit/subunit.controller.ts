@@ -5,7 +5,7 @@ import { UpdateSubunitDto } from './dto/update-subunit.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Sub Unit') 
-@Controller('subunit')
+@Controller('api/subunit')
 export class SubunitController {
   constructor(private readonly subunitService: SubunitService) {}
 

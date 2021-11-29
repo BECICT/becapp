@@ -6,7 +6,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { FilterDto } from 'src/common/filter.dto';
 
 @ApiTags('Member')
-@Controller('member')
+@Controller('api/member')
 export class MemberController {
   constructor(private readonly memberService: MemberService) {}
 

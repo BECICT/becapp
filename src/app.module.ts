@@ -9,8 +9,10 @@ import { EmploymentModule } from './employment/employment.module';
 import { ExtraModule } from './extra/extra.module';
 import { ProfileModule } from './profile/profile.module';
 import config from 'ormconfig';
+import { User } from './user.entity';
+import { JwtModule } from '@nestjs/jwt';
 @Module({
-  imports: [TypeOrmModule.forRoot(config), SubunitModule, MemberModule, ContactModule, EmploymentModule, ExtraModule, ProfileModule],
+  imports: [TypeOrmModule.forRoot(config), SubunitModule, MemberModule, ContactModule, EmploymentModule, ExtraModule, ProfileModule, TypeOrmModule.forFeature([User]), JwtModule.register({secret: 'secret', signOptions: {expiresIn: '10d'} })],
   controllers: [AppController],
   providers: [AppService],
 })
