@@ -25,5 +25,6 @@ export class User{
 
     @UpdateDateColumn({name: 'UpdatedOn', default: new Date(), nullable: true})
     UpdatedOn: Date;
+  static Service: any;
 
 }
