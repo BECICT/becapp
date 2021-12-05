@@ -11,9 +11,12 @@ export abstract class RecurrentBaseEntity{
     @UpdateDateColumn({name: 'UpdatedOn', default: new Date(), nullable: true})
     UpdatedOn: Date;
 
-    @Column({nullable: true})
+    @Column({nullable: false})
     CreatedBy: string;
 
     @Column({nullable: true})
     UpdateBy: string
+    
+    @Column({nullable: false})
+    CreatorID:string;
 }

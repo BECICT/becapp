@@ -1,9 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { EmploymentService } from './employment.service';
 import { CreateEmploymentDto } from './dto/create-employment.dto';
 import { UpdateEmploymentDto } from './dto/update-employment.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
+@ApiBearerAuth()
+@UseGuards(AuthGuard('jwt'))
 @ApiTags("Employment")
 @Controller('employment')
 export class EmploymentController {

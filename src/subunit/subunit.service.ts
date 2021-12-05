@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateSubunitDto } from './dto/create-subunit.dto';
@@ -9,16 +9,23 @@ import { Subunit } from './entities/subunit.entity';
 export class SubunitService {
   constructor(@InjectRepository(Subunit) private subunitrepo: Repository<Subunit>){}
 
-  async create(createsubunitdto: CreateSubunitDto) {
+  async create(createsubunitdto: CreateSubunitDto, email: string, creatorId: string) {
     try{
       if(createsubunitdto.Name === null){
-        return `The Name filed can not be empty`
+        throw new BadRequestException({status: HttpStatus.FORBIDDEN, error:`The Name filed can not be empty`}); 
       }
-      const subunit = this.subunitrepo.create(createsubunitdto);    
-      return await this.subunitrepo.save(subunit);
+
+      let subunit = new Subunit();
+      subunit.Name = createsubunitdto.Name;
+      subunit.CreatedBy = email;
+      subunit.CreatorID = creatorId;
+
+
+      const subunitcreate = this.subunitrepo.create(subunit);    
+      return await this.subunitrepo.save(subunitcreate);
 
     }catch(e){
-      return (e as Error).message;
+      throw new BadRequestException({status: HttpStatus.FORBIDDEN}); 
     }
   }
 

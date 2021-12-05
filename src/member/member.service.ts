@@ -10,10 +10,10 @@ import { Member } from './entities/member.entity';
 export class MemberService {
   constructor(@InjectRepository(Member) private memberrepo: Repository<Member>){}
 
-  async create(dto: CreateMemberDto): Promise<CreateMemberDto> {
+  async create(dto: CreateMemberDto, creatorName: string, creatorId: string): Promise<CreateMemberDto> {
 
     let member = new Member();
-    member.Firstname = dto.Firstname;
+    member.Firstname = dto.Firstname; 
     member.Birthdate = dto.Birthdate;
     member.Gender = dto.Gender;
     member.Maritalstatus = dto.Maritalstatus;
@@ -26,15 +26,28 @@ export class MemberService {
     member.Surname  = dto.Surname;
     member.Tag_No = dto.Tag_No;
     member.Title = dto.Title;
+    member.CreatedBy = creatorName;
+    member.CreatorID = creatorId;
 
     return await this.memberrepo.save(member);
   }
 
   findAll({ searchString }: FilterDto, page: number, pagesize: number): Promise<CreateMemberDto[]> {
+    // page = 1;
+    // pagesize = 20;
     if(searchString){
-    let members = this.memberrepo.createQueryBuilder("member").where("(member.Tag_No LIKE :searchString OR member.Title LIKE :searchString OR member.Surname LIKE :searchString OR member.Firstname LIKE :searchString OR member.Othername LIKE :searchString OR member.Birthdate LIKE :searchString OR member.Gender LIKE :searchString OR member.Maritalstatus LIKE :searchString OR member.MembershipStatus LIKE :searchString OR member.SubunitId LIKE :searchString)", { searchString: `%${searchString}%` }).skip(pagesize * (page - 1))
+    let members = this.memberrepo.createQueryBuilder("member").where('member.Tag_No ILIKE :searchString', {searchString: `%${searchString}%`})
+    .orWhere('member.Title ILIKE :searchString', {searchString: `%${searchString}%`})
+    .orWhere('member.Surname ILIKE :searchString', {searchString: `%${searchString}%`})
+    .orWhere('member.Firstname ILIKE :searchString', {searchString: `%${searchString}%`})
+    .orWhere('member.Othername ILIKE :searchString', {searchString: `%${searchString}%`})
+    .orWhere('member.Birthdate ILIKE :searchString', {searchString: `%${searchString}%`})
+    .orWhere('member.Gender ILIKE :searchString', {searchString: `%${searchString}%`})
+    .orWhere('member.Maritalstatus ILIKE :searchString', {searchString: `%${searchString}%`})
+    .orWhere('member.MembershipStatus ILIKE :searchString', {searchString: `%${searchString}%`})
+    .orWhere('member.SubunitId ILIKE :searchString', {searchString: `%${searchString}%`}).skip(pagesize * (page - 1))
     .take(pagesize)
-    .getMany();
+    .getMany();    
     return members;
     }
     return this.memberrepo.createQueryBuilder().skip(pagesize * (page - 1))
@@ -48,7 +61,7 @@ export class MemberService {
   }
 
   async update(id: string, dto: UpdateMemberDto) {
-    const getmember = this.findOne(id);
+    const getmember = await this.findOne(id);
     if(getmember === null || getmember === undefined){
       throw new HttpException({
         error: `Member with id ${id} does not exists or has been deleted`, status: HttpStatus.NOT_FOUND
@@ -69,7 +82,7 @@ export class MemberService {
     member.Surname  = dto.Surname;
     member.Title = dto.Title;
 
-    return await this.memberrepo.update(id, dto)
+    return await this.memberrepo.update(id, member)
   }
 
   remove(id: string) {

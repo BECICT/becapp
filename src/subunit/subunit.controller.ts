@@ -1,21 +1,29 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Inject, CACHE_MANAGER, Req } from '@nestjs/common';
 import { SubunitService } from './subunit.service';
 import { CreateSubunitDto } from './dto/create-subunit.dto';
 import { UpdateSubunitDto } from './dto/update-subunit.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
+import { Cache } from 'cache-manager';
 
+@ApiBearerAuth()
+@UseGuards(AuthGuard('jwt'))
 @ApiTags('Sub Unit') 
 @Controller('api/subunit')
 export class SubunitController {
-  constructor(private readonly subunitService: SubunitService) {}
+  constructor(private readonly subunitService: SubunitService, @Inject(CACHE_MANAGER) private cacheManager: Cache) {}
 
   @Post()
-  async create(@Body() createSubunitDto: CreateSubunitDto) {
-    return await this.subunitService.create(createSubunitDto);
+  async create(@Req() req, @Body() createSubunitDto: CreateSubunitDto) {
+    const email = req.user.email;
+    const id = req.user.Id;
+    return await this.subunitService.create(createSubunitDto, email, id);
   }
 
+  
   @Get()
-  findAll() {
+  async findAll() {
+    const value = await this.cacheManager.get('signedInUser')
     return this.subunitService.findAll();
   }
 

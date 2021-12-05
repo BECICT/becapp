@@ -6,7 +6,7 @@ import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
 @Entity()
 export class Contact extends RecurrentBaseEntity {
 
-    @Column()
+    @Column({nullable: false})
     Address1: string;
 
     @Column({nullable: true})
