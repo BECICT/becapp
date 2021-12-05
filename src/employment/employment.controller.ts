@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
 import { EmploymentService } from './employment.service';
 import { CreateEmploymentDto } from './dto/create-employment.dto';
 import { UpdateEmploymentDto } from './dto/update-employment.dto';
@@ -13,8 +13,10 @@ export class EmploymentController {
   constructor(private readonly employmentService: EmploymentService) {}
 
   @Post()
-  create(@Body() createEmploymentDto: CreateEmploymentDto) {
-    return this.employmentService.create(createEmploymentDto);
+  create(@Req() req, @Body() createEmploymentDto: CreateEmploymentDto) {
+    const email = req.user.email;
+    const id = req.user.Id;
+    return this.employmentService.create(createEmploymentDto, email, id);
   }
 
   @Get()
