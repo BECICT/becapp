@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, Query } from '@nestjs/common';
 import { EmploymentService } from './employment.service';
 import { CreateEmploymentDto } from './dto/create-employment.dto';
 import { UpdateEmploymentDto } from './dto/update-employment.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
+import { FilterDto } from 'src/common/filter.dto';
 
 @ApiBearerAuth()
 @UseGuards(AuthGuard('jwt'))
@@ -20,22 +21,23 @@ export class EmploymentController {
   }
 
   @Get()
-  findAll() {
-    return this.employmentService.findAll();
+  findAll(@Query()filterstring: FilterDto, @Param('page')page: number, @Param('pagesize')pagesize: number) {
+    return this.employmentService.findAll(filterstring, page, pagesize);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.employmentService.findOne(+id);
+    return this.employmentService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEmploymentDto: UpdateEmploymentDto) {
-    return this.employmentService.update(+id, updateEmploymentDto);
+  update(@Req() req, @Param('id') id: string, @Body() updateEmploymentDto: UpdateEmploymentDto) {
+    const email = req.user.email;
+    return this.employmentService.update(id, updateEmploymentDto, email);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.employmentService.remove(+id);
+    return this.employmentService.remove(id);
   }
 }

@@ -6,6 +6,7 @@ import { Auth } from './entities/auth.entity';
 import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
+import { ChangePasswordAuthDto } from './dto/changepassword-auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -62,5 +63,25 @@ export class AuthService {
           return this.jwtService.sign({sub: userId, email, claim: type});
       }
     
+      async changepassword(dto: ChangePasswordAuthDto, userId: string){
+        const user = await this.findOneById(userId);
+        if(!user){
+          throw new BadRequestException('invalid Credential');
+        }
+
+        if(dto.newpassword !== dto.confirmpassword){
+          throw new BadRequestException('New passwprd and confirm password miss match');
+        }
+        if(!await bcrypt.compare(dto.oldpassword, user.password)){
+          throw new BadRequestException('password miss match');
+        }
+
+        const saltOrRounds = 12    
+        const hashPassword = await bcrypt.hash(dto.newpassword, saltOrRounds);    
+
+        user.password = hashPassword;
+        await this.authrepo.save(user);
+        return('your new password is ready')
+      }
 
 }

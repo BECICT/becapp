@@ -4,6 +4,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { request } from 'http';
 import { AuthService } from './auth.service';
+import { ChangePasswordAuthDto } from './dto/changepassword-auth.dto';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { LoginDto } from './dto/login.dto';
 
@@ -32,6 +33,15 @@ export class AuthController {
   getUser(@Req() req) {   
     console.log(req.user) 
     return req.user.email
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
+  @Post()
+  async passwordChange(@Req() req, dto: ChangePasswordAuthDto) {   
+    //console.log(req.user) 
+    const userId = req.user.Id;
+    return await this.authService.changepassword(dto, userId);
   }
 
   

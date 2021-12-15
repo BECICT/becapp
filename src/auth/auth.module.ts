@@ -9,7 +9,7 @@ import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   imports:[TypeOrmModule.forFeature([Auth]), JwtModule.register({
-    secret: jwtConstants.secret}), CacheModule.register()],
+    secret: jwtConstants.secret}), TypeOrmModule.forFeature([Auth]), CacheModule.register()],
    controllers: [AuthController],
    providers: [AuthService, JwtStrategy],
 })

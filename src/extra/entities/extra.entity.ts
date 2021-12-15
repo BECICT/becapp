@@ -14,7 +14,7 @@ export class Extra extends RecurrentBaseEntity {
     @Column({nullable: true})
     NameOfSchool: string
 
-    @Column({nullable: false})
+    @Column({nullable: true})
     Level: string
 
     @OneToOne(() => Member)

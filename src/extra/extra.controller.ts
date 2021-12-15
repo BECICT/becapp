@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, Query } from '@nestjs/common';
 import { ExtraService } from './extra.service';
 import { CreateExtraDto } from './dto/create-extra.dto';
 import { UpdateExtraDto } from './dto/update-extra.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
+import { FilterDto } from 'src/common/filter.dto';
 
 @ApiBearerAuth()
 @UseGuards(AuthGuard('jwt'))
@@ -13,27 +14,30 @@ export class ExtraController {
   constructor(private readonly extraService: ExtraService) {}
 
   @Post()
-  create(@Body() createExtraDto: CreateExtraDto) {
-    return this.extraService.create(createExtraDto);
+  create(@Req() req, @Body() dto: CreateExtraDto) {
+    const email = req.user.email;
+    const id = req.user.Id;
+    return this.extraService.create(dto, email, id);
   }
 
   @Get()
-  findAll() {
-    return this.extraService.findAll();
+  findAll(@Query()filterstring: FilterDto, @Param('page')page: number, @Param('pagesize')pagesize: number) {
+    return this.extraService.findAll(filterstring, page, pagesize);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.extraService.findOne(+id);
+    return this.extraService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateExtraDto: UpdateExtraDto) {
-    return this.extraService.update(+id, updateExtraDto);
+  update(@Req() req, @Param('id') id: string, @Body() updateExtraDto: UpdateExtraDto) {
+    const email = req.user.email;
+    return this.extraService.update(id, updateExtraDto, email);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.extraService.remove(+id);
+    return this.extraService.remove(id);
   }
 }
