@@ -9,7 +9,7 @@ import { FilterDto } from 'src/common/filter.dto';
 @ApiBearerAuth()
 @UseGuards(AuthGuard('jwt'))
 @ApiTags('Contact')
-@Controller('contact')
+@Controller('api/contact')
 export class ContactController {
   constructor(private readonly contactService: ContactService) {}
 

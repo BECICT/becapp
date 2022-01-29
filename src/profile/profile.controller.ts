@@ -8,7 +8,7 @@ import { AuthGuard } from '@nestjs/passport';
 @ApiBearerAuth()
 @UseGuards(AuthGuard('jwt'))
 @ApiTags('Profile')
-@Controller('profile')
+@Controller('api/profile')
 export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
 

@@ -10,9 +10,8 @@ async function bootstrap() {
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());
 
-  app.enableCors({
-    origin: 'http://localhot:8080',//front end url
-    credentials: true})
+  app.enableCors({allowedHeaders:"*",
+  origin: "*"})
 
   const config = new DocumentBuilder()
     .setTitle('BEC Register API')

@@ -9,7 +9,7 @@ import { FilterDto } from 'src/common/filter.dto';
 @ApiBearerAuth()
 @UseGuards(AuthGuard('jwt'))
 @ApiTags("Extral")
-@Controller('extra')
+@Controller('api/extra')
 export class ExtraController {
   constructor(private readonly extraService: ExtraService) {}
 

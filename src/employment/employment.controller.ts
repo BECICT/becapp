@@ -9,7 +9,7 @@ import { FilterDto } from 'src/common/filter.dto';
 @ApiBearerAuth()
 @UseGuards(AuthGuard('jwt'))
 @ApiTags("Employment")
-@Controller('employment')
+@Controller('api/employment')
 export class EmploymentController {
   constructor(private readonly employmentService: EmploymentService) {}
 

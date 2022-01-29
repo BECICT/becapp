@@ -9,13 +9,13 @@ import { CreateAuthDto } from './dto/create-auth.dto';
 import { LoginDto } from './dto/login.dto';
 
 @ApiTags('Auth')
-@Controller('auth')
+@Controller('api/auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('signup')
   async signup(@Body() userdto: CreateAuthDto) {
-    let newuser = await this.authService.signup(userdto);
+    let newuser = await this.authService.signup(userdto); 
 
     const { Id, password, failedloginAttempt, firstlogin, ...result } = newuser;
 

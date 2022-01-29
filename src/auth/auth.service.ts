@@ -30,6 +30,7 @@ export class AuthService {
         newUser.password = hashPassword;
         newUser.failedloginAttempt = 0;
         newUser.firstlogin = false;
+        newUser.role = 'Member'
         
         return this.authrepo.save(newUser);
       }
@@ -55,8 +56,9 @@ export class AuthService {
             throw new BadRequestException('invalid Credential');
           }
 
-          
-          return this.loginUser(user.Id, user.email, 'user');
+          const role= user.role
+          const token = this.loginUser(user.Id, user.email, 'user');
+          return {token, role}
       }
 
       loginUser(userId: string, email: string, type: string){

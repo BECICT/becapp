@@ -1,6 +1,6 @@
 import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { getConnection, Repository } from 'typeorm';
 import { CreateSubunitDto } from './dto/create-subunit.dto';
 import { UpdateSubunitDto } from './dto/update-subunit.dto';
 import { Subunit } from './entities/subunit.entity';
@@ -33,23 +33,24 @@ export class SubunitService {
     return this.subunitrepo.find();
   }
 
-  findOne(id: string) {
-    return this.subunitrepo.findOne(id);
+  async findOne(id: string) {
+    const result = await this.subunitrepo.findOne(id);
+    return result;
   }
 
-  update(id: string, updateSubunitDto: UpdateSubunitDto) {
-    const getsubunit = this.findOne(id);
+  async update(id: string, updateSubunitDto: UpdateSubunitDto) {
+    const getsubunit = await this.findOne(id);
     if(getsubunit === null || getsubunit === undefined){
       throw new HttpException({
         error: `subunit with id ${id} does not exists or has been deleted`, status: HttpStatus.NOT_FOUND
       }, HttpStatus.NOT_FOUND);
     }
 
-    return this.subunitrepo.update(id, updateSubunitDto)
-    //return `This action updates a #${id} subunit`;
+    const result = await getConnection().createQueryBuilder().update(Subunit).set({Name: updateSubunitDto.Name}).where("Id = :Id", {Id: id}).execute();
+    return result;
   }
 
-  remove(id: string) {
-    return this.subunitrepo.delete(id);
+  async remove(id: string) {
+    return await this.subunitrepo.delete(id);
   }
 }

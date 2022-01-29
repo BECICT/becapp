@@ -17,6 +17,9 @@ export class Auth{
     @Column({default: true})
     firstlogin: boolean
 
+    @Column({default: 'Member'})
+    role: string
+
     @Column()
     failedloginAttempt: number
 

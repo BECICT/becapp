@@ -5,6 +5,10 @@ export class CreateAuthDto{
    
     @ApiProperty()
     @IsNotEmpty()
+    regCode: string
+
+    @ApiProperty()
+    @IsNotEmpty()
     fullname: string
 
     @ApiProperty()

@@ -23,7 +23,7 @@ export class SubunitController {
   
   @Get()
   async findAll() {
-    const value = await this.cacheManager.get('signedInUser')
+    //const value = await this.cacheManager.get('signedInUser')
     return this.subunitService.findAll();
   }
 
