@@ -30,6 +30,11 @@ export class MemberController {
     return this.memberService.findOne(id);
   }
 
+  @Get('creator/contact/:userId')
+  findbyCreatorID(@Param('userId') userId: string) {
+    return this.memberService.findbyCreatedId(userId);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMemberDto: UpdateMemberDto) {
     return this.memberService.update(id, updateMemberDto);

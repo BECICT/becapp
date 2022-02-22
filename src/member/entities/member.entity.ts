@@ -45,6 +45,7 @@ export class Member extends RecurrentBaseEntity {
     @Column()
     SubunitId: string;
 
+
     @ManyToOne(() => Subunit, s => s.Member)
     Subunit: Subunit
 }

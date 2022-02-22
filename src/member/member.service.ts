@@ -60,6 +60,11 @@ export class MemberService {
             .where("member.Id = :id", {id: id}).getOne()
   }
 
+  findbyCreatedId(id: string) {
+    return this.memberrepo.createQueryBuilder("member")
+            .where("member.CreatorID = :id", {id: id}).getOne()
+  }
+
   async update(id: string, dto: UpdateMemberDto) {
     const getmember = await this.findOne(id);
     if(getmember === null || getmember === undefined){

@@ -57,8 +57,10 @@ export class AuthService {
           }
 
           const role= user.role
+          const userId = user.Id
+          const email = user.email
           const token = this.loginUser(user.Id, user.email, 'user');
-          return {token, role}
+          return {token, role, userId, email}
       }
 
       loginUser(userId: string, email: string, type: string){
