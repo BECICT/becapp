@@ -20,7 +20,7 @@ import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConne
     "password": "9522e990cf3efe039ab0fc3c642359090f283c09530f3cef4db0429af2fd886b",
     "database": "d2ua3vsvk3m0o7",
     "entities": ["dist/**/*.entity{.ts,.js}"],
-    "synchronize": true,
+    "synchronize": false,
     ssl: {
       rejectUnauthorized: false,
   }
