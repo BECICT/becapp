@@ -6,99 +6,99 @@ import { Profile } from "src/profile/entities/profile.entity";
 
 export class MultiFormUtilityDto extends PartialType(Profile) {
 //member
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     Tag_No: string;
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     PhotoUrl: string;
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     Title: string;
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     Surname:string;
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     Firstname:string;
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     Othername:string;
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     Birthdate:Date;
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     Gender:string;
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     Maritalstatus:string;
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     Nextofkin:string;
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     PhoneNoOfNextOfKin:string;
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     MembershipStatus:string;
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     SubunitId: string;
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     CreatedBy: string;
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     CreatorID: string;
     
 //CONTACT
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     @IsNotEmpty()
     Address1: string;
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     Address2: string;
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     @IsNotEmpty()
     @IsPhoneNumber()
     PrimaryPhoneNo: string;
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     @IsPhoneNumber()
     OtherPhoneNo: string;
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     @IsNotEmpty()
     @IsEmail()
     EmailAddress: string;
    
     //EMPLOYMENT
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     @IsNotEmpty()
     EmploymentStatus:string; 
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     OfficeAddress:string;
  
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     Profession:string;
    
     //Extral
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     @IsNotEmpty()
     EducationalQualification: string
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     Student: string
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     NameOfSchool: string
 
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     Level: string
 
     //SUBUNIT
-    @ApiProperty()
+    @ApiProperty({nullable: true})
     Name: string;
 }
