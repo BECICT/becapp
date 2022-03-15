@@ -46,7 +46,7 @@ export class Member extends RecurrentBaseEntity {
     @Column()
     MembershipStatus:string;
 
-    @Column()
+    @Column({nullable:true})
     SubunitId: string;    
 
     @OneToOne(() => Profile, p => p.member, {onDelete: 'CASCADE'})
