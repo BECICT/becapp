@@ -9,6 +9,6 @@ export class Subunit extends RecurrentBaseEntity {
     @Column({ unique: true, nullable: false, })
     Name: string;
 
-    @OneToMany(()=> Member, m => m.Subunit)
-    Member: Member[]
+    // @OneToMany(()=> Member, m => m.Subunit)
+    // Member: Member[]
 }

@@ -155,7 +155,7 @@ export class MemberService {
     member.Nextofkin = dto.nextofkin
     member.PhoneNoOfNextOfKin = dto.phoneNoOfNextOfKin
     member.MembershipStatus = dto.membershipStatus
-    member.SubunitId = dto.subunitId
+    member.Subunit = dto.subunitId
     member.CreatedBy = creatorName;
     member.CreatorID = creatorId;
     member.CreatedOn = new Date()
