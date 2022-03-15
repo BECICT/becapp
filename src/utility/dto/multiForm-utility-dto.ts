@@ -4,52 +4,52 @@ import { IsEmail, IsNotEmpty, IsPhoneNumber } from "class-validator";
 import { Member } from "src/member/entities/member.entity";
 import { Profile } from "src/profile/entities/profile.entity";
 
-export class MultiFormUtilityDto extends PartialType(Profile) {
+export class MultiFormUtilityDto {
 //member
     @ApiProperty({nullable: true})
-    Tag_No: string;
+    tagNo: string;
 
     @ApiProperty({nullable: true})
-    PhotoUrl: string;
+    photoUrl: string;
 
     @ApiProperty({nullable: true})
-    Title: string;
+    title: string;
 
     @ApiProperty({nullable: true})
-    Surname:string;
+    surname:string;
 
     @ApiProperty({nullable: true})
-    Firstname:string;
+    firstname:string;
 
     @ApiProperty({nullable: true})
-    Othername:string;
+    othername:string;
 
     @ApiProperty({nullable: true})
-    Birthdate:Date;
+    birthdate:Date;
 
     @ApiProperty({nullable: true})
-    Gender:string;
+    gender:string;
 
     @ApiProperty({nullable: true})
-    Maritalstatus:string;
+    maritalstatus:string;
 
     @ApiProperty({nullable: true})
-    Nextofkin:string;
+    nextofkin:string;
 
     @ApiProperty({nullable: true})
-    PhoneNoOfNextOfKin:string;
+    phoneNoOfNextOfKin:string;
 
     @ApiProperty({nullable: true})
-    MembershipStatus:string;
+    membershipStatus:string;
 
     @ApiProperty({nullable: true})
-    SubunitId: string;
+    subunitId: string;
 
     @ApiProperty({nullable: true})
-    CreatedBy: string;
+    createdBy: string;
 
     @ApiProperty({nullable: true})
-    CreatorID: string;
+    creatorID: string;
     
 //CONTACT
     @ApiProperty({nullable: true})
@@ -57,15 +57,15 @@ export class MultiFormUtilityDto extends PartialType(Profile) {
     Address1: string;
 
     @ApiProperty({nullable: true})
-    Address2: string;
+    address2: string;
 
-    @ApiProperty({nullable: true})
-    @IsNotEmpty()
-    @IsPhoneNumber()
+    @ApiProperty()
+    // @IsNotEmpty()
+    // @IsPhoneNumber()
     PrimaryPhoneNo: string;
 
-    @ApiProperty({nullable: true})
-    @IsPhoneNumber()
+    @ApiProperty()
+    // @IsPhoneNumber()
     OtherPhoneNo: string;
 
     @ApiProperty({nullable: true})
@@ -79,10 +79,10 @@ export class MultiFormUtilityDto extends PartialType(Profile) {
     EmploymentStatus:string; 
 
     @ApiProperty({nullable: true})
-    OfficeAddress:string;
+    officeAddress:string;
  
     @ApiProperty({nullable: true})
-    Profession:string;
+    profession:string;
    
     //Extral
     @ApiProperty({nullable: true})
@@ -90,15 +90,51 @@ export class MultiFormUtilityDto extends PartialType(Profile) {
     EducationalQualification: string
 
     @ApiProperty({nullable: true})
-    Student: string
+    student: string
 
     @ApiProperty({nullable: true})
-    NameOfSchool: string
+    nameOfSchool: string
 
     @ApiProperty({nullable: true})
-    Level: string
+    level: string
 
     //SUBUNIT
     @ApiProperty({nullable: true})
-    Name: string;
+    name: string;
+
+    @ApiProperty({nullable: true})
+    dateOfNewBirth: Date
+
+    @ApiProperty({nullable: true})
+    dateJoinedChurch: Date
+
+    @ApiProperty({nullable: true})
+    dateOfHolyGhostBaptizim: Date    
+
+    @ApiProperty({nullable: true})
+    placeOfNewBirth: string
+
+    @ApiProperty({nullable: true})
+    wofbistatus: string
+
+    @ApiProperty({nullable: true})
+    zone: string
+
+    @ApiProperty({nullable: true})
+    district: string
+    
+    @ApiProperty({nullable: true})
+    wSFStatus: string
+
+    @ApiProperty({nullable: true})
+    waterBaptizim: boolean
+
+    @ApiProperty({nullable: true})
+    holyGhostBaptisim: boolean
+
+    @ApiProperty({nullable: true})
+    area: string
+
+    @ApiProperty({nullable: true})
+    dateOfWaterBaptizim:Date
 }

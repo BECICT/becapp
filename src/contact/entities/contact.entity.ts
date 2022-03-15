@@ -21,7 +21,6 @@ export class Contact extends RecurrentBaseEntity {
     @Column()
     EmailAddress: string;
 
-    @OneToOne(() => Member)
-    @JoinColumn()
-    member:Member;
+    @Column()
+    memberId:string;
 }

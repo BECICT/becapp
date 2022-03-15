@@ -1,6 +1,10 @@
+import { Contact } from "src/contact/entities/contact.entity";
+import { Employment } from "src/employment/entities/employment.entity";
+import { Extra } from "src/extra/entities/extra.entity";
+import { Profile } from "src/profile/entities/profile.entity";
 import { RecurrentBaseEntity } from "src/recurrentBaseEntity";
 import { Subunit } from "src/subunit/entities/subunit.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity()
@@ -43,9 +47,20 @@ export class Member extends RecurrentBaseEntity {
     MembershipStatus:string;
 
     @Column()
-    SubunitId: string;
+    SubunitId: string;    
 
+    @OneToOne(() => Profile, p => p.member, {onDelete: 'CASCADE'})
+    profile: Profile
 
-    @ManyToOne(() => Subunit, s => s.Member)
-    Subunit: Subunit
+    @OneToOne(() => Contact, {cascade: true})
+    @JoinColumn()
+    contact: Contact
+
+    @OneToOne(() => Employment, {cascade: true})
+    @JoinColumn()
+    employment: Employment
+
+    @OneToOne(() => Extra, {cascade: true})
+    @JoinColumn()
+    extra: Extra
 }

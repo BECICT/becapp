@@ -5,6 +5,7 @@ import { UpdateMemberDto } from './dto/update-member.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { FilterDto } from 'src/common/filter.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { MultiFormUtilityDto } from 'src/utility/dto/multiForm-utility-dto';
 
 @ApiBearerAuth()
 @UseGuards(AuthGuard('jwt'))
@@ -13,16 +14,16 @@ import { AuthGuard } from '@nestjs/passport';
 export class MemberController {
   constructor(private readonly memberService: MemberService) {}
 
-  @Post()
-  async create(@Req() req, @Body() createMemberDto: CreateMemberDto) {
-    const email = req.user.email;
-    const id = req.user.Id;
-    return await this.memberService.create(createMemberDto, email, id);
-  }
+  // @Post()
+  // async create(@Req() req, @Body() createMemberDto: CreateMemberDto) {
+  //   const email = req.user.email;
+  //   const id = req.user.Id;
+  //   return await this.memberService.create(createMemberDto, email, id);
+  // }
 
   @Get(':page/:pagesize')
-  findAll(@Query()filterstring: FilterDto, @Param('page')page: number, @Param('pagesize')pagesize: number): Promise<CreateMemberDto[]> {
-    return this.memberService.findAll(filterstring, page, pagesize);
+  findAll(@Query()filterstring: FilterDto, @Req() req){
+    return this.memberService.findAll(filterstring, req);
   }
 
   @Get(':id')
@@ -35,13 +36,22 @@ export class MemberController {
     return this.memberService.findbyCreatedId(userId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMemberDto: UpdateMemberDto) {
-    return this.memberService.update(id, updateMemberDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateMemberDto: UpdateMemberDto) {
+  //   return this.memberService.update(id, updateMemberDto);
+  // }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.memberService.remove(id);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
+  @Post('multiform')
+  async createform(@Body() dto: MultiFormUtilityDto, @Req() req: any){
+     const email = req.user.email;
+    const id = req.user.Id;
+    const result = await this.memberService.processdata(dto, email, id)
   }
 }

@@ -14,8 +14,7 @@ export class Employment extends RecurrentBaseEntity {
     @Column()
     Profession:string;
 
-    @OneToOne(() => Member)
-    @JoinColumn()
-    member:Member;
+    @Column()
+    memberId:string;
     
 }

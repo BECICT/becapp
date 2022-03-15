@@ -41,7 +41,10 @@ export class Profile extends RecurrentBaseEntity {
     @Column()
     Zone:string;
 
-    @OneToOne(() => Member)
-    @JoinColumn()
-    member:Member;
+    @Column()
+    memberId:string;
+
+    @OneToOne(() => Member, m => m.profile, {onDelete: 'CASCADE'})
+    @JoinColumn({name: 'memberId', referencedColumnName: 'Id'})
+    member:string;
 }

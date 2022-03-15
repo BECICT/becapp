@@ -17,7 +17,6 @@ export class Extra extends RecurrentBaseEntity {
     @Column({nullable: true})
     Level: string
 
-    @OneToOne(() => Member)
-    @JoinColumn()
-    member:Member;
+    @Column()
+    memberId:string;
 }
