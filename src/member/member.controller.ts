@@ -23,7 +23,8 @@ export class MemberController {
 
   @Get(':page/:pagesize')
   findAll(@Query()filterstring: FilterDto, @Req() req){
-    return this.memberService.findAll(filterstring, req);
+    return this.memberService.findAll();
+    // (filterstring, req);
   }
 
   @Get(':id')

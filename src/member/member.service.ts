@@ -15,6 +15,7 @@ import { Member } from './entities/member.entity';
 @Injectable()
 export class MemberService {
   constructor(@InjectRepository(Member) private memberrepo: Repository<Member>,
+  @InjectRepository(Profile) private profileRepo: Repository<Profile>,
   private connection:Connection
   ){}
 
@@ -40,29 +41,35 @@ export class MemberService {
   //   return await this.memberrepo.save(member);
   // }
 
-  findAll({ searchString, page, limit }: FilterDto, user: Auth) {
+  findAll() {
     // page = 1;
     // pagesize = 20;
-    if(searchString){
+    // if(searchString){
+    // let members = this.memberrepo.createQueryBuilder("member")
+    // .leftJoinAndSelect('member.profile', 'profile')
+    // // .where('member.Tag_No ILIKE :searchString', {searchString: `%${searchString}%`})
+    // // .orWhere('member.Title ILIKE :searchString', {searchString: `%${searchString}%`})
+    // // .orWhere('member.Surname ILIKE :searchString', {searchString: `%${searchString}%`})
+    // // .orWhere('member.Firstname ILIKE :searchString', {searchString: `%${searchString}%`})
+    // // .orWhere('member.Othername ILIKE :searchString', {searchString: `%${searchString}%`})
+    // // .orWhere('member.Birthdate ILIKE :searchString', {searchString: `%${searchString}%`})
+    // // .orWhere('member.Gender ILIKE :searchString', {searchString: `%${searchString}%`})
+    // // .orWhere('member.Maritalstatus ILIKE :searchString', {searchString: `%${searchString}%`})
+    // // .orWhere('member.MembershipStatus ILIKE :searchString', {searchString: `%${searchString}%`})
+    // // .orWhere('member.SubunitId ILIKE :searchString', {searchString: `%${searchString}%`})
+    // .skip(limit * (page - 1))
+    // .take(limit)
+    // .getMany();    
+    // return members;
+    // }
+
     let members = this.memberrepo.createQueryBuilder("member")
-    .leftJoinAndSelect('member.profile', 'profile')
-    .where('member.Tag_No ILIKE :searchString', {searchString: `%${searchString}%`})
-    .orWhere('member.Title ILIKE :searchString', {searchString: `%${searchString}%`})
-    .orWhere('member.Surname ILIKE :searchString', {searchString: `%${searchString}%`})
-    .orWhere('member.Firstname ILIKE :searchString', {searchString: `%${searchString}%`})
-    .orWhere('member.Othername ILIKE :searchString', {searchString: `%${searchString}%`})
-    .orWhere('member.Birthdate ILIKE :searchString', {searchString: `%${searchString}%`})
-    .orWhere('member.Gender ILIKE :searchString', {searchString: `%${searchString}%`})
-    .orWhere('member.Maritalstatus ILIKE :searchString', {searchString: `%${searchString}%`})
-    .orWhere('member.MembershipStatus ILIKE :searchString', {searchString: `%${searchString}%`})
-    .orWhere('member.SubunitId ILIKE :searchString', {searchString: `%${searchString}%`}).skip(limit * (page - 1))
-    .take(limit)
-    .getMany();    
-    return members;
-    }
-    return this.memberrepo.createQueryBuilder().skip(limit * (page - 1))
-    .take(limit)
-    .getMany();
+    .leftJoinAndSelect('member.profile', 'profile').getMany();
+
+    return members
+    // this.memberrepo.createQueryBuilder().skip(limit * (page - 1))
+    // .take(limit)
+    // .getMany();
   }
 
   findOne(id: string) {
