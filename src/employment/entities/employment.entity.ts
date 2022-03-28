@@ -8,13 +8,17 @@ export class Employment extends RecurrentBaseEntity {
     @Column()
     EmploymentStatus:string;
     
-    @Column()
+    @Column({nullable: true})
     OfficeAddress:string;
 
-    @Column()
+    @Column({nullable: true})
     Profession:string;
 
     @Column()
     memberId:string;
+
+    // @OneToOne(() => Member, m => m.employment, {onDelete: 'CASCADE'})
+    // @JoinColumn({name: 'memberId', referencedColumnName: 'Id'})
+    // member:string;
     
 }

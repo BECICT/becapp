@@ -23,4 +23,8 @@ export class Contact extends RecurrentBaseEntity {
 
     @Column()
     memberId:string;
+
+    // @OneToOne(() => Member, m => m.contact, {onDelete: 'CASCADE'})
+    // @JoinColumn({name: 'memberId', referencedColumnName: 'Id'})
+    // member:string;
 }

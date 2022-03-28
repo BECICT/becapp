@@ -1,18 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 import { FilterDto } from 'src/common/filter.dto';
-import { CreateContactDto } from 'src/contact/dto/create-contact.dto';
-import { Contact } from 'src/contact/entities/contact.entity';
-import { CreateEmploymentDto } from 'src/employment/dto/create-employment.dto';
-import { Employment } from 'src/employment/entities/employment.entity';
-import { CreateExtraDto } from 'src/extra/dto/create-extra.dto';
-import { Extra } from 'src/extra/entities/extra.entity';
-import { Member } from 'src/member/entities/member.entity';
-import { CreateProfileDto } from 'src/profile/dto/create-profile.dto';
-import { Profile } from 'src/profile/entities/profile.entity';
-import { Connection, getConnection, Repository } from 'typeorm';
+import { getConnection, Repository } from 'typeorm';
 import { CreateUtilityDto } from './dto/create-utility.dto';
-import { MultiFormUtilityDto } from './dto/multiForm-utility-dto';
+// import { MultiFormUtilityDto } from './dto/multiForm-utility-dto';
 import { UpdateUtilityDto } from './dto/update-utility.dto';
 import { Utility } from './entities/utility.entity';
 

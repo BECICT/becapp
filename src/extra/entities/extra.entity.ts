@@ -19,4 +19,9 @@ export class Extra extends RecurrentBaseEntity {
 
     @Column()
     memberId:string;
+
+    
+    // @OneToOne(() => Member, m => m.extra, {onDelete: 'CASCADE'})
+    // @JoinColumn({name: 'memberId', referencedColumnName: 'Id'})
+    // member:string;
 }

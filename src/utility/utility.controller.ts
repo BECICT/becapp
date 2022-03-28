@@ -5,7 +5,7 @@ import { UpdateUtilityDto } from './dto/update-utility.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { FilterDto } from 'src/common/filter.dto';
-import { MultiFormUtilityDto } from './dto/multiForm-utility-dto';
+// import { MultiFormUtilityDto } from './dto/multiForm-utility-dto';
 
 @ApiTags('Utility')
 @Controller('api/utility')
@@ -20,14 +20,14 @@ export class UtilityController {
     return result;
   }
 
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
-  @Post('multiform')
-  async createform(@Body() dto: MultiFormUtilityDto, @Req() req: any){
-     const email = req.user.email;
-    const id = req.user.Id;
-    const result = await this.utilityService.processdata(dto, email, id)
-  }
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard('jwt'))
+  // @Post('multiform')
+  // async createform(@Body() dto: MultiFormUtilityDto, @Req() req: any){
+  //    const email = req.user.email;
+  //   const id = req.user.Id;
+  //   const result = await this.utilityService.processdata(dto, email, id)
+  // }
 
 
 

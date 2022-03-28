@@ -5,7 +5,7 @@ import { UpdateMemberDto } from './dto/update-member.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { FilterDto } from 'src/common/filter.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { MultiFormUtilityDto } from 'src/utility/dto/multiForm-utility-dto';
+// import { MultiFormUtilityDto } from 'src/utility/dto/multiForm-utility-dto';
 
 @ApiBearerAuth()
 @UseGuards(AuthGuard('jwt'))
@@ -14,13 +14,6 @@ import { MultiFormUtilityDto } from 'src/utility/dto/multiForm-utility-dto';
 export class MemberController {
   constructor(private readonly memberService: MemberService) {}
 
-  // @Post()
-  // async create(@Req() req, @Body() createMemberDto: CreateMemberDto) {
-  //   const email = req.user.email;
-  //   const id = req.user.Id;
-  //   return await this.memberService.create(createMemberDto, email, id);
-  // }
-
   @Get(':page/:pagesize')
   findAll(@Query()filterstring: FilterDto, @Req() req){
     return this.memberService.findAll();
@@ -28,8 +21,8 @@ export class MemberController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.memberService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    return await this.memberService.findany(id);
   }
 
   @Get('creator/contact/:userId')
@@ -50,9 +43,10 @@ export class MemberController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @Post('multiform')
-  async createform(@Body() dto: MultiFormUtilityDto, @Req() req: any){
+  async createform(@Body() dto: CreateMemberDto, @Req() req: any){
      const email = req.user.email;
     const id = req.user.Id;
     const result = await this.memberService.processdata(dto, email, id)
+    return result;
   }
 }
